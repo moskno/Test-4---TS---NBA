@@ -58,5 +58,4 @@ function displayPlayers(players: Player[]){
 }
 
 function addPlayerToTeam(player: Player){
-
 }
