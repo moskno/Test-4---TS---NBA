@@ -12,6 +12,18 @@ const BASE_URL = 'https://nbaserver-q21u.onrender.com/api/filter';
 const form = document.querySelector('#search-form');
 const tableBody = document.querySelector('#body-row');
 const teamTable = document.querySelector('#team-container');
+const pointsOutput = document.getElementById('points-output');
+const twoPercentOutput = document.getElementById('two-percent-output');
+const threePercentOutput = document.getElementById('three-percent-output');
+document.querySelector('#points-range').addEventListener('input', (e) => {
+    pointsOutput.textContent = e.target.value;
+});
+document.querySelector('#two-percent-output').addEventListener('input', (e) => {
+    twoPercentOutput.textContent = e.target.value;
+});
+document.querySelector('#three-percent-output').addEventListener('input', (e) => {
+    threePercentOutput.textContent = e.target.value;
+});
 function fetchPlayers(position, points, twoPercent, threePercent) {
     return __awaiter(this, void 0, void 0, function* () {
         const requestBody = {
@@ -51,4 +63,23 @@ function displayPlayers(players) {
     });
 }
 function addPlayerToTeam(player) {
+    const row = teamTable.querySelector(`tr[data-position="${player.position}"]`);
+    if (row) {
+        row.innerHTML = `
+        <td>${player.playerName}</td>
+        <td>${player.position}</td>
+        <td>${player.points}</td>
+        <td>${player.twoPercent}</td>
+        <td>${player.threePercent}%</td>
+        <td>${player.threePercent}%</td>`;
+    }
 }
+form.addEventListener('submit', (event) => __awaiter(void 0, void 0, void 0, function* () {
+    event.preventDefault();
+    const position = document.querySelector('#position-selector').value;
+    const points = Number(document.querySelector('#points-range').value);
+    const twoPercent = Number(document.querySelector('#field-goal-range').value);
+    const threePercent = Number(document.querySelector('#3-point-range').value);
+    const players = yield fetchPlayers(position, points, twoPercent, threePercent);
+    displayPlayers(players);
+}));

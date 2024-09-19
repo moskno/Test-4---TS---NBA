@@ -11,6 +11,21 @@ interface Player{
 const form = document.querySelector<HTMLFormElement>('#search-form')!;
 const tableBody = document.querySelector<HTMLTableSectionElement>('#body-row')!;
 const teamTable = document.querySelector<HTMLTableElement>('#team-container')!;
+const pointsOutput = document.getElementById('points-output')as HTMLSpanElement;
+const twoPercentOutput = document.getElementById('two-percent-output')as HTMLSpanElement;
+const threePercentOutput = document.getElementById('three-percent-output')as HTMLSpanElement;
+
+document.querySelector('#points-range')!.addEventListener('input', (e) => {
+    pointsOutput.textContent = (e.target as HTMLInputElement).value;
+});
+
+document.querySelector('#two-percent-output')!.addEventListener('input', (e) => {
+    twoPercentOutput.textContent = (e.target as HTMLInputElement).value;
+});
+
+document.querySelector('#three-percent-output')!.addEventListener('input', (e) => {
+    threePercentOutput.textContent = (e.target as HTMLInputElement).value;
+});
 
 
 
@@ -58,4 +73,30 @@ function displayPlayers(players: Player[]){
 }
 
 function addPlayerToTeam(player: Player){
+    const row = teamTable.querySelector(`tr[data-position="${player.position}"]`);
+    
+    if(row){
+        row.innerHTML = `
+        <td>${player.playerName}</td>
+        <td>${player.position}</td>
+        <td>${player.points}</td>
+        <td>${player.twoPercent}</td>
+        <td>${player.threePercent}%</td>
+        <td>${player.threePercent}%</td>`;
+    }
 }
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const position = (document.querySelector('#position-selector') as HTMLSelectElement).value;
+    const points = Number((document.querySelector('#points-range') as HTMLInputElement).value);
+    const twoPercent = Number((document.querySelector('#field-goal-range') as HTMLInputElement).value);
+    const threePercent = Number((document.querySelector('#3-point-range') as HTMLInputElement).value);
+    const players = await fetchPlayers(position, points, twoPercent, threePercent);
+    displayPlayers(players);
+})
+
+
+
+
