@@ -9,41 +9,47 @@
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
 </head>
 <body>
-    <header>NBA FANTASTY 2014-2024</header>
+    <header>NBA Fantasy 2024</header>
     <main>
         <section id="team-container">
             <h1 class="title">My Fantasy Team</h1>
             <div id="players-boxes">
-                <div class="player-box" id="point-guard-box">Point Guard</div>
-                <div class="player-box" id="shooting-guard-box">Shooting Guard</div>
-                <div class="player-box" id="small-forward-box">Small Forward</div>
-                <div class="player-box" id="power-forward-box">Power Forward</div>
-                <div class="player-box" id="center-box">Center</div>
+                <div class="player-box" id="pg-box">Point Guard</div>
+                <div class="player-box" id="sg-box">Shooting Guard</div>
+                <div class="player-box" id="sf-box">Small Forward</div>
+                <div class="player-box" id="pf-box">Power Forward</div>
+                <div class="player-box" id="c-box">Center</div>
             </div>
         </section>
+
         <section id="search-container">
             <h2 class="title">NBA Player Search</h2>
             <div id="search-player">
-                <form action="" id="search-form">
-                    <select name="role" id="position-selector">
+                <form id="search-form">
+                    <select id="position-selector">
                         <option value="PG">PG</option>
                         <option value="SG">SG</option>
                         <option value="SF">SF</option>
                         <option value="PF">PF</option>
                         <option value="C">C</option>
                     </select>
-                    <label for="points-range">Points (0 - 20000):</label>
+                    
+                    <label for="points-range" class="slider-title">Points (0 - 20000):</label>
                     <input type="range" class="slider" id="points-range" name="Points" min="0" max="20000" value="0">
                     <span id="points-output">0</span>
-                    <label for="field-goal-range">2% Shooting (0 - 100):</label>
+                    
+                    <label for="field-goal-range" class="slider-title">2% Shooting (0 - 100):</label>
                     <input type="range" class="slider" id="field-goal-range" name="Field Goal %" min="0" max="100" value="0">
                     <span id="two-percent-output">0%</span>
-                    <label for="3-point-range">3% Shooting (0 - 100):</label>
-                    <input type="range" class="slider" id="3-point-range" name="3-Point %" min="0" max="100" value="0">
+                    
+                    <label for="3-point-range" class="slider-title">3% Shooting (0 - 100):</label>
+                    <input type="range" class="slider" id="three-point-range" name="3-Point %" min="0" max="100" value="0">
                     <span id="three-percent-output">0%</span>
-                    <input type="submit" value="Search Player" class="btn" id="search-btn">
+                    
+                    <button type="submit" class="btn" id="search-btn">Search Player</button>
                 </form>
-                <table>
+
+                <table id="table-container">
                     <thead id="head-row">
                         <tr>
                             <th>Player</th>
@@ -54,14 +60,11 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody id="body-row">
-
-                    </tbody>
+                    <tbody id="body-row"></tbody>
                 </table>
             </div>
         </section>
     </main>
-    
-    <script src='script.ts'></script>
+    <script src='javascript/script.js'></script>
 </body>
 </html>
